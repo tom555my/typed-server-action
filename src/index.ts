@@ -1,5 +1,10 @@
 import { z } from 'zod';
 
+type ErrMsg = {
+	key: string;
+	errMsg: string;
+};
+
 export type ServerReturnType<T> =
 	| {
 			success: true;
@@ -7,10 +12,7 @@ export type ServerReturnType<T> =
 	  }
 	| {
 			success: false;
-			errMsgs: {
-				k: string;
-				m: string;
-			}[];
+			errMsgs: ErrMsg[];
 	  };
 
 export const serverActionResult = {
@@ -20,7 +22,7 @@ export const serverActionResult = {
 			data,
 		} as const;
 	},
-	fail: (errMsgs: { k: string; m: string }[]) => {
+	fail: (errMsgs: ErrMsg[]) => {
 		return {
 			success: false,
 			errMsgs,
@@ -41,8 +43,8 @@ export function typedServerAction<S extends ReturnType<typeof z.object>, T exten
 		if (!parsedResult.success) {
 			return serverActionResult.fail(
 				parsedResult.error.issues.map((issue) => ({
-					k: issue.path.join('.'),
-					m: issue.message,
+					key: issue.path.join('.'),
+					errMsg: issue.message,
 				})),
 			);
 		}
