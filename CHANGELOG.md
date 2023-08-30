@@ -1,5 +1,11 @@
 # typed-server-action
 
+## 0.0.3
+
+### Patch Changes
+
+-   fe0c79e: fix cicd
+
 ## 0.0.2
 
 ### Patch Changes
