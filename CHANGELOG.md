@@ -1,5 +1,11 @@
 # typed-server-action
 
+## 0.0.5
+
+### Patch Changes
+
+-   8c43255: fix missing formData to json func
+
 ## 0.0.4
 
 ### Patch Changes
